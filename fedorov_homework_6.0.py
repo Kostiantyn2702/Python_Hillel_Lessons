@@ -82,15 +82,10 @@ print(my_new_list)
 5. Дана строка my_str. Вывести символы, которые встречаются в строке только один раз.
 """
 
-my_str = "abc abc dd"
+my_str = "abc abc d"
 
-# print(set(my_str)) # Легкий путь :)
-
-# По идее в фунции set() спрятана похожая конструкция, но это не точно.
-empty_list = [] # Можно вывести и списком, и строкой.
 for symbol in my_str:
-    if symbol not in empty_list:
-        empty_list.append(symbol)
+    if my_str.count(symbol) == 1:
         print(symbol) # Решил вывести построчно
 
 
@@ -102,10 +97,14 @@ for symbol in my_str:
 
 my_string_1 = "oqwetui"
 my_string_2 = "pqweyiz"
+set_my_string_1 = set(my_string_1)
+set_my_string_2 = set(my_string_2)
 
-for symbol in my_string_1:
-    if symbol in my_string_2:
-        print(symbol)
+print(set_my_string_1.intersection(set_my_string_2))
+
+# for symbol in my_string_1:
+#     if symbol in my_string_2:
+#         print(symbol)
 
 ######################################################################
 
@@ -116,11 +115,9 @@ for symbol in my_string_1:
 
 my_string_1 = "oqqwetuizi"
 my_string_2 = "pqqweyizzi"
-symbol_counter = ""
 
 for symbol in my_string_1:
-    if symbol in my_string_2 and symbol not in symbol_counter:
-        symbol_counter += symbol
+    if my_string_1.count(symbol) == 1 and my_string_2.count(symbol) == 1:
         print(symbol)
 
 ######################################################################
