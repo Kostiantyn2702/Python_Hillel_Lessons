@@ -3,7 +3,9 @@
 """
 
 number = 1000
-print(list(str(number)).count("0"))
+number_of_zeros = str(number).count("0")
+
+print(number_of_zeros)
 
 #########################################################
 
@@ -41,12 +43,12 @@ my_list_1 = [50, 70, 15, 14, 67, 2435, 3251]
 my_list_2 = [657, 546, 23, 123, 43, 54, 676]
 my_result = []
 
-for index_1 in range(len(my_list_1)):
-    if not index_1 % 2:
+for index_1, number_1 in enumerate(my_list_1):
+    if not number_1 % 2:
         my_result.append(my_list_1[index_1])
 
-for index_2 in range(len(my_list_2)):
-    if index_2 % 2:
+for index_2, number_2 in enumerate(my_list_2):
+    if number_2 % 2:
         my_result.append(my_list_2[index_2])
 
 print(my_result)
@@ -60,13 +62,8 @@ print(my_result)
 """
 
 my_list = [1, 2, 3, 4]
-new_list = []
-
-for index, value in enumerate(my_list):
-    if index != 0:
-        new_list.append(value)
-
-new_list.append(my_list[::-1].pop())
+new_list = my_list.copy()
+new_list.append(new_list.pop(0))
 
 print(new_list)
 
@@ -90,25 +87,43 @@ print(my_list)
 """
 
 # my_str = "43 больше чем 34, но меньше чем 56"
-my_str = "fdb2dfbfd5dfbd 02,wefew5wefhiu   dawd 25 @@#$25   "
+my_str = "fdb2dfbfd5dfbd 02,wefew5wefhiu   dawd 25 @@#$25"
+# my_str = "2,5 2.5d"
 sum_numbers_str = "" # Пустая строка для накопления цифр до пробелов.
 sum_numbers_int = 0 # Переменная в которой будет сложение цифр, которые попали в строку sum_numbers_str до пробелов.
 
-# Получилось как-то громоздко, но идей как это можно сжать или другого варианта решения пока нет. :(
+# Крутил, вертел, а вышло все также.
 
-for index, num in enumerate(my_str): # Использую enumerate чтобы пройтись и по индексу и по самим символам.
-    if (index == len(my_str) - 1) and num.isdigit(): # Первым условием проверяю не в конце ли символ, потому-что в конце строки может не быть пробелов и цифра ли это.
-        sum_numbers_str = sum_numbers_str + num # Если это цифра, то добавляем ее в строку.
-        sum_numbers_int = sum_numbers_int + int(sum_numbers_str) # А потом суммируем с тем что насобиралось за весь цикл.
-    elif (index == len(my_str) - 1) and num.isalpha(): # Условие при котором в конце строки будет стоять символ, тогда добавлять его в строку sum_numbers_str невозможно.
-        sum_numbers_int = sum_numbers_int + int(sum_numbers_str) # Поэтому просто суммируем все что накопилось за весь цикл.
-    elif num.isdigit(): # По сути основное условие. Если строка это цифра, то добавляем ее в строку sum_numbers_str в которой собираются цифры до пробелов.
-        sum_numbers_str = sum_numbers_str + num
-    elif num == " ": # Сигнал о том, что пора приводить sum_numbers_str к типу int
-        sum_numbers_int = sum_numbers_int + int(sum_numbers_str) # И суммировать его с такими же товарищами.
-        sum_numbers_str = "0" # Обнуляем строку sum_numbers_str, потому что там уже есть какие-то цифры, а так как у нас появился разделительный символ, то нужно собирать цифры без учета старых
+for index, symbol in enumerate(my_str):
+    if index == len(my_str) - 1:
+        if symbol.isdigit():
+            sum_numbers_str += symbol
+            sum_numbers_int += float(sum_numbers_str)
+        else:
+            sum_numbers_int += float(sum_numbers_str)
+    elif symbol == " ":
+        sum_numbers_int += float(sum_numbers_str)
+        sum_numbers_str = "0"
+    elif symbol.isdigit() or symbol == ".":
+        sum_numbers_str += symbol
 
 print(sum_numbers_int)
+
+# Первый вариант
+
+# for index, num in enumerate(my_str):
+#     if (index == len(my_str) - 1) and num.isdigit():
+#         sum_numbers_str = sum_numbers_str + num
+#         sum_numbers_int = sum_numbers_int + int(sum_numbers_str)
+#     elif (index == len(my_str) - 1) and num.isalpha():
+#         sum_numbers_int = sum_numbers_int + int(sum_numbers_str)
+#     elif num.isdigit():
+#         sum_numbers_str = sum_numbers_str + num
+#     elif num == " ":
+#         sum_numbers_int = sum_numbers_int + int(sum_numbers_str)
+#         sum_numbers_str = "0"
+
+# print(sum_numbers_int)
 
 #########################################################
 
@@ -118,22 +133,30 @@ print(sum_numbers_int)
 Примеры: 'abcd' -> ['ab', 'cd'], 'abc' -> ['ab', 'c_']
 """
 
-my_str = "abcde"
+my_str = "abcdе"
 my_list = []
-my_two_symbols = ""
+# my_two_symbols = ""
 index = 0
 
+# Не уверен что именно это Вы иммели ввиду, но стало короче и без elif .
 while index <= len(my_str) - 1:
-    my_two_symbols += my_str[index]
-    if len(my_two_symbols) == 2:
-        my_list.append(my_two_symbols)
-        my_two_symbols = ""
-    elif len(my_two_symbols) == 1 and index == len(my_str) - 1:
-        my_two_symbols += "_"
-        my_list.append(my_two_symbols)
-    index += 1
+    my_list.append(my_str[index:(index + 2)])
+    index += 2
+    if index == len(my_str) - 1 and len(my_str) % 2:
+        my_list.append(my_str[-1] + "_")
+        break
 
-print(my_list)
+# while index <= len(my_str) - 1:
+#     my_two_symbols += my_str[index]
+#     if len(my_two_symbols) == 2:
+#         my_list.append(my_two_symbols)
+#         my_two_symbols = ""
+#     elif len(my_two_symbols) == 1 and index == len(my_str) - 1:
+#         my_two_symbols += "_"
+#         my_list.append(my_two_symbols)
+#     index += 1
+
+# print(my_list)
 
 #########################################################
 
@@ -179,7 +202,6 @@ print(sub_str)
 """
 
 list_number = [2, 4, 1, 5, 3, 9, 0, 7]
-number_between_neighbours = 0
 count = 0
 
 # В самом условии не напсиано что это сумма двух соседей, а в примере сумма. Меня запутало.
@@ -188,27 +210,15 @@ count = 0
 # Вариант №1. Для суммы соседей.
 
 for index, number in enumerate(list_number):
-    if index == 0:
-        continue
-    elif index == len(list_number) - 1:
-        print(count)
-        break
-    else:
-        if number > list_number[index - 1] + list_number[index + 1]:
-            count += 1
-        else:
-            continue
+    if index != 0 and index != len(list_number) - 1 and number > list_number[index + 1] + list_number[index - 1]:
+        count += 1
+
+print(count)
 
 # Вариант №2. Для соседей по отдельности.
 
 # for index, number in enumerate(list_number):
-#     if index == 0:
-#         continue
-#     elif index == len(list_number) - 1:
-#         print(count)
-#         break
-#     else:
-#         if list_number[index + 1] < number > list_number[index - 1]:
-#             count += 1
-#         else:
-#             continue
+#     if index != 0 and index != len(list_number) - 1 and max(list_number[index + 1] , list_number[index - 1]) < number:
+#         count += 1
+#
+# print(count)
