@@ -86,28 +86,37 @@ print(my_list)
 Для данного примера 133.
 """
 
-# my_str = "43 больше чем 34, но меньше чем 56"
-my_str = "fdb2dfbfd5dfbd 02,wefew5wefhiu   dawd 25 @@#$25"
-# my_str = "2,5 2.5d"
+my_str_simple = "43 больше чем 34, но меньше чем 56."
+# my_str = "fdb2dfbfd5dfbd 02,wefew5wefhiu   dawd 25 @@#$25"
 sum_numbers_str = "" # Пустая строка для накопления цифр до пробелов.
 sum_numbers_int = 0 # Переменная в которой будет сложение цифр, которые попали в строку sum_numbers_str до пробелов.
 
-# Крутил, вертел, а вышло все также.
-
-for index, symbol in enumerate(my_str):
-    if index == len(my_str) - 1:
-        if symbol.isdigit():
-            sum_numbers_str += symbol
-            sum_numbers_int += float(sum_numbers_str)
-        else:
-            sum_numbers_int += float(sum_numbers_str)
-    elif symbol == " ":
-        sum_numbers_int += float(sum_numbers_str)
-        sum_numbers_str = "0"
-    elif symbol.isdigit() or symbol == ".":
-        sum_numbers_str += symbol
+# Я наверно не так понял задание и имелись ввиду числа без сопутствующих букв(например "4А не равно 4" или та абракадабра из my_str).
+my_list_simple = my_str_simple.split(" ")
+for number in my_list_simple:
+    if "," in number or "." in number:
+        sum_numbers_int += int(number.strip(",."))
+    elif number.isdigit():
+        sum_numbers_int += int(number)
 
 print(sum_numbers_int)
+
+# Крутил, вертел, а вышло все также.
+
+# for index, symbol in enumerate(my_str):
+#     if index == len(my_str) - 1:
+#         if symbol.isdigit():
+#             sum_numbers_str += symbol
+#             sum_numbers_int += float(sum_numbers_str)
+#         else:
+#             sum_numbers_int += float(sum_numbers_str)
+#     elif symbol == " ":
+#         sum_numbers_int += float(sum_numbers_str)
+#         sum_numbers_str = "0"
+#     elif symbol.isdigit() or symbol == ".":
+#         sum_numbers_str += symbol
+#
+# print(sum_numbers_int)
 
 # Первый вариант
 
@@ -133,18 +142,20 @@ print(sum_numbers_int)
 Примеры: 'abcd' -> ['ab', 'cd'], 'abc' -> ['ab', 'c_']
 """
 
-my_str = "abcdе"
+my_str = "abc"
 my_list = []
 # my_two_symbols = ""
 index = 0
 
 # Не уверен что именно это Вы иммели ввиду, но стало короче и без elif .
-while index <= len(my_str) - 1:
+
+if len(my_str) % 2:
+    my_str = my_str + "_"
+
+while len(my_list) < len(my_str) / 2:
     my_list.append(my_str[index:(index + 2)])
     index += 2
-    if index == len(my_str) - 1 and len(my_str) % 2:
-        my_list.append(my_str[-1] + "_")
-        break
+
 
 # while index <= len(my_str) - 1:
 #     my_two_symbols += my_str[index]
@@ -156,7 +167,7 @@ while index <= len(my_str) - 1:
 #         my_list.append(my_two_symbols)
 #     index += 1
 
-# print(my_list)
+print(my_list)
 
 #########################################################
 
@@ -203,15 +214,23 @@ print(sub_str)
 
 list_number = [2, 4, 1, 5, 3, 9, 0, 7]
 count = 0
+index = 0
 
 # В самом условии не напсиано что это сумма двух соседей, а в примере сумма. Меня запутало.
 # Поэтому сделал вариант для суммы и для каждого из соседей по отдельности.
 
 # Вариант №1. Для суммы соседей.
 
-for index, number in enumerate(list_number):
-    if index != 0 and index != len(list_number) - 1 and number > list_number[index + 1] + list_number[index - 1]:
+for number in list_number[1:-1]:
+    if number > list_number[index] + list_number[index + 2]:
         count += 1
+    index += 1
+
+# Укороченый прошлый вариант.
+
+# for index, number in enumerate(list_number):
+#     if index != 0 and index != len(list_number) - 1 and number > list_number[index + 1] + list_number[index - 1]:
+#         count += 1
 
 print(count)
 
