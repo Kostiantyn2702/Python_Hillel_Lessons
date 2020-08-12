@@ -94,10 +94,8 @@ sum_numbers_int = 0 # Переменная в которой будет слож
 # Я наверно не так понял задание и имелись ввиду числа без сопутствующих букв(например "4А не равно 4" или та абракадабра из my_str).
 my_list_simple = my_str_simple.split(" ")
 for number in my_list_simple:
-    if "," in number or "." in number:
+    if "," in number or "." in number or number.isdigit():
         sum_numbers_int += int(number.strip(",."))
-    elif number.isdigit():
-        sum_numbers_int += int(number)
 
 print(sum_numbers_int)
 
