@@ -1,4 +1,7 @@
-import string
+# import string
+# import datetime
+# import math
+
 """
 Ваше задание здесь создать функцию, которая получает массив(tuple) и возвращает набор с 3 элементами - первым, третьим, вторым с конца.
 """
@@ -248,17 +251,32 @@ The text consists from numbers, spaces and english letters
 Для примера, в строке "start 5 one two three 7 end" есть три слова подряд.
 """
 
-def checkio(words: str) -> bool:
-    counter = 0
-    split_words = words.split(" ")
-    print(split_words)
-    for value in split_words:
-        if counter == 3:
-            return True
-        elif value.isalpha():
-            counter += 1
-        else:
-            counter = 0
-    return True if counter == 3 else False
+# def checkio(words: str) -> bool:
+#     counter = 0
+#     split_words = words.split(" ")
+#     for value in split_words:
+#         if counter == 3:
+#             return True
+#         elif value.isalpha():
+#             counter += 1
+#         else:
+#             counter = 0
+#     return True if counter == 3 else False
 
-print(checkio("Hello World hello"))
+
+"""
+У вас есть две даты в кортежах с тремя числами - год, месяц и день. Например, 19 апреля 1982 будет (1982, 4, 19). 
+Вы должны найти разницу в днях между имеющимися датами. Например, между сегодня и вчера = 1 день. 
+Разница между днями всегда будет положительной или нулем, не забывайте про абсолютное значение.
+"""
+
+# def days_diff(a, b):
+#     year_a, month_a, day_a = a
+#     year_b, month_b, day_b = b
+#     result = abs((datetime.date(year_a, month_a, day_a)-datetime.date(year_b, month_b, day_b)).days)
+#     return result
+
+# from datetime import date
+#
+# def days_diff(a, b):
+#     return abs((date(*a)-date(*b)).days)
