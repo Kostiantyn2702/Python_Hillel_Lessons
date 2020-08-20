@@ -81,6 +81,6 @@ def create_empty_folder_tmp(path:str):
     else:
         for object in folder_list:
             old_path_name = os.path.join(path, object)
-            os.rename(old_path_name, os.path.join(path, object + "_tmp"))
+            os.rename(old_path_name, os.path.join(path, object + "_tmp")) # Так как в условии задачи нужно добавить к существующим подпапкам "_tmp", то при каждом запуске программа будет это делать, даже если папка уже названа "tmp_tmp".
 
 # create_empty_folder_tmp("./testdir/testdir2")
