@@ -1,10 +1,11 @@
+import string
 """
 Ваше задание здесь создать функцию, которая получает массив(tuple) и возвращает набор с 3 элементами - первым, третьим, вторым с конца.
 """
 
-def easy_unpack(massive_tuple):
-    result = (massive_tuple[0], massive_tuple[2], massive_tuple[-2])
-    return result
+# def easy_unpack(massive_tuple):
+#     result = (massive_tuple[0], massive_tuple[2], massive_tuple[-2])
+#     return result
 
 """Дана строка и нужно найти ее первое слово."""
 
@@ -17,9 +18,9 @@ def easy_unpack(massive_tuple):
 #             break
 #     return result
 
-def first_word(text):
-    index = text.find(" ")
-    return text[:index] if index != -1 else text
+# def first_word(text):
+#     index = text.find(" ")
+#     return text[:index] if index != -1 else text
 
 """
 In this mission, you need to create a password verification function.
@@ -27,35 +28,35 @@ The verification condition is:
 the length should be bigger than 6.
 """
 
-def is_acceptable_password(password: str) -> bool:
-    if len(password) < 6 or len(password) == 6:
-        return False
-    return True
+# def is_acceptable_password(password: str) -> bool:
+#     if len(password) < 6 or len(password) == 6:
+#         return False
+#     return True
 
 """You have a positive integer. Try to find out how many digits it has?"""
 
-def number_length(a: int) -> int:
-    return len(str(a))
+# def number_length(a: int) -> int:
+#     return len(str(a))
 
 """Попробуйте выяснить какое количество нулей содержит данное число в конце."""
 
-def end_zeros(num):
-    list_num = list(str(num))
-    result = ""
-    for i in range(len(str(num))):
-        if list_num[-1] == "0":
-            result += list_num.pop()
-    return len(result)
+# def end_zeros(num):
+#     list_num = list(str(num))
+#     result = ""
+#     for i in range(len(str(num))):
+#         if list_num[-1] == "0":
+#             result += list_num.pop()
+#     return len(result)
 
 """You should return a given string in reverse order."""
 
-def backward_string(val: str) -> str:
-    return val[::-1]
+# def backward_string(val: str) -> str:
+#     return val[::-1]
 
 """Not all of the elements are important. What you need to do here is to remove from the list all of the elements before the given one."""
 
-def remove_all_before(items: list, border: int):
-    return items[items.index(border):] if border in items else items
+# def remove_all_before(items: list, border: int):
+#     return items[items.index(border):] if border in items else items
 
 """Check if a given string has all symbols in upper case. If the string is empty or doesn't have any letter in it - function should return True."""
 
@@ -69,25 +70,25 @@ def remove_all_before(items: list, border: int):
 #     elif text.islower() and text.isupper():
 #         return False
 
-def is_all_upper(text: str) -> bool:
-    return text.upper() == text
+# def is_all_upper(text: str) -> bool:
+#     return text.upper() == text
 
 """In a given list the first element should become the last one. An empty list or list with only one element should stay the same."""
 
-def replace_first(items: list):
-    items.append(items.pop(0)) if len(items) != 0 else items
-    return items
+# def replace_first(items: list):
+#     items.append(items.pop(0)) if len(items) != 0 else items
+#     return items
 
 """You have a number and you need to determine which digit in this number is the biggest."""
 
-def max_digit(number: int) -> int:
-    for num in str(number):
-        maximum = str(number)[0]
-        if num >= maximum:
-            maximum = num
-        elif len(str(number)) == 1:
-            maximum = number
-    return int(maximum)
+# def max_digit(number: int) -> int:
+#     for num in str(number):
+#         maximum = str(number)[0]
+#         if num >= maximum:
+#             maximum = num
+#         elif len(str(number)) == 1:
+#             maximum = number
+#     return int(maximum)
 
 """
 Найдите ближайшее значение к переданному.
@@ -103,23 +104,23 @@ def max_digit(number: int) -> int:
 Ряд не отсортирован и состоит из уникальных чисел.
 """
 
-def nearest_value(values: set, one: int) -> int:
-    list_values = list(values)
-    min_val = list_values[0]
-    max_val = list_values[-1]
-    for val in list_values:
-        if val < one:
-            min_val = val
-        elif val > one and val < max_val:
-            max_val = val
-    if one in list_values:
-        return one
-    elif (one - min_val) > (max_val - one):
-        return max_val
-    elif (one - min_val) < (max_val - one):
-        return min_val
-    elif (one - min_val) == (max_val - one):
-        return min_val
+# def nearest_value(values: set, one: int) -> int:
+#     list_values = list(values)
+#     min_val = list_values[0]
+#     max_val = list_values[-1]
+#     for val in list_values:
+#         if val < one:
+#             min_val = val
+#         elif val > one and val < max_val:
+#             max_val = val
+#     if one in list_values:
+#         return one
+#     elif (one - min_val) > (max_val - one):
+#         return max_val
+#     elif (one - min_val) < (max_val - one):
+#         return min_val
+#     elif (one - min_val) == (max_val - one):
+#         return min_val
 
 """
 Вам дана строка и два маркера (начальный и конечный). Вам необходимо найти текст, заключенный между двумя этими маркерами. Но есть несколько важных условий.
@@ -131,9 +132,9 @@ def nearest_value(values: set, one: int) -> int:
 Начальный и конечный маркеры всегда есть в строке и идут один за другим.
 """
 
-def between_markers(text: str, begin: str, end: str) -> str:
-    result = text[text.find(begin) + 1:text.find(end)]
-    return result
+# def between_markers(text: str, begin: str, end: str) -> str:
+#     result = text[text.find(begin) + 1:text.find(end)]
+#     return result
 
 """
 Вам дана строка и два маркера (начальный и конечный). Вам необходимо найти текст, заключенный между двумя этими маркерами. Но есть несколько важных условий:
@@ -157,10 +158,10 @@ def between_markers(text: str, begin: str, end: str) -> str:
 #     result = text[text.find(begin) + len(begin):text.find(end)]
 #     return result
 
-def between_markers(text: str, begin: str, end: str) -> str:
-    begin_idx = text.index(begin) + len(begin) if begin in text else 0
-    end_idx = text.index(end) if end in text else len(text)
-    return text[begin_idx: end_idx]
+# def between_markers(text: str, begin: str, end: str) -> str:
+#     begin_idx = text.index(begin) + len(begin) if begin in text else 0
+#     end_idx = text.index(end) if end in text else len(text)
+#     return text[begin_idx: end_idx]
 
 """
 На вход Вашей функции будет передано одно предложение. 
@@ -174,35 +175,90 @@ def between_markers(text: str, begin: str, end: str) -> str:
 #         text = text + "."
 #     return text
 
-def correct_sentence(text: str):
-    text = text.rstrip(".")
-    return text[0].upper() + text[1:] + "."
+# def correct_sentence(text: str):
+#     text = text.rstrip(".")
+#     return text[0].upper() + text[1:] + "."
 
 """
 In a given text you need to sum the numbers. Only separated numbers should be counted. If a number is part of a word it shouldn't be counted.
 The text consists from numbers, spaces and english letters
 """
 
-def sum_numbers(text: str) -> int:
-    list_text = text.split(" ")
-    result = 0
-    for element in list_text:
-        if element.isdigit():
-            result += int(element)
-    return result
+# def sum_numbers(text: str) -> int:
+#     list_text = text.split(" ")
+#     result = 0
+#     for element in list_text:
+#         if element.isdigit():
+#             result += int(element)
+#     return result
 
+"""
+Дан массив целых чисел. Нужно найти сумму элементов с четными индексами (0-й, 2-й, 4-й итд), затем перемножить эту сумму и последний элемент исходного массива. 
+Не забудьте, что первый элемент массива имеет индекс 0.
+Для пустого массива результат всегда 0 (ноль).
+"""
 
-if __name__ == '__main__':
-    print("Example:")
-    print(sum_numbers('hi'))
+# def checkio(array: list) -> int:
+#     sum_numbers = 0
+#     for index, number in enumerate(array):
+#         if not index % 2:
+#             sum_numbers += array[index]
+#     result = sum_numbers * array[-1] if len(array) > 0 else 0
+#     return result
 
-    # These "asserts" are used for self-checking and not for an auto-testing
-    assert sum_numbers('hi') == 0
-    assert sum_numbers('who is 1st here') == 0
-    assert sum_numbers('my numbers is 2') == 2
-    assert sum_numbers('This picture is an oil on canvas '
- 'painting by Danish artist Anna '
- 'Petersen between 1845 and 1910 year') == 3755
-    assert sum_numbers('5 plus 6 is') == 11
-    assert sum_numbers('') == 0
-    print("Coding complete? Click 'Check' to earn cool rewards!")
+# def checkio(array: list) -> int:
+#     return sum(array[::2]) * sum(array[-1:])
+
+"""
+Дана последовательность строк. Вы должны объединить эти строки в блок текста, разделив изначальные строки запятыми. 
+В качестве шутки над праворукими роботами, вы должны заменить все вхождения слова "right" на слова "left", даже если это часть другого слова. 
+Все строки даны в нижнем регистре.
+"""
+
+# def left_join(phrases: tuple) -> str:
+#     return ",".join(phrases).replace("right", "left")
+
+"""
+Дана строка и нужно найти ее первое слово.
+При решении задачи обратите внимание на следующие моменты:
+В строке могут встречатся точки и запятые
+Строка может начинаться с буквы или, к примеру, с пробела или точки
+В слове может быть апостроф и он является частью слова
+Весь текст может быть представлен только одним словом и все
+"""
+
+# def first_word(text: str) -> str:
+#     text = text.split(" ")
+#     for txt in text:
+#         # txt.split(".")
+#         if txt != "" and "." not in txt:
+#             return txt.rstrip(",")
+#     return txt.split(".")[0]
+
+# def first_word(text: str) -> str:
+#     text=text.replace('.',' ')
+#     text=text.replace(',',' ')
+#     text=text.strip()
+#     text=text.split(' ')
+#     return text[0]
+
+"""
+Дана строка со словами и числами, разделенными пробелами (один пробел между словами и/или числами). 
+Слова состоят только из букв. Вам нужно проверить есть ли в исходной строке три слова подряд. 
+Для примера, в строке "start 5 one two three 7 end" есть три слова подряд.
+"""
+
+def checkio(words: str) -> bool:
+    counter = 0
+    split_words = words.split(" ")
+    print(split_words)
+    for value in split_words:
+        if counter == 3:
+            return True
+        elif value.isalpha():
+            counter += 1
+        else:
+            counter = 0
+    return True if counter == 3 else False
+
+print(checkio("Hello World hello"))
