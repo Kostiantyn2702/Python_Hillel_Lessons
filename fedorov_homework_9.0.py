@@ -62,7 +62,7 @@ def get_filenames_list_from_folder(path="."):
 
 # print(get_filenames_list_from_folder("./testdir/testdir2"))
 
-def get_dict_filenames_folders(path: str):
+def get_dict_filenames_folders(path="."):
     folder_list = [] # Начало
     filenames_and_folder_list = os.listdir(path)
     for object in filenames_and_folder_list:
