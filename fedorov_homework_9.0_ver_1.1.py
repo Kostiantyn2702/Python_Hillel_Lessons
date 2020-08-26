@@ -28,4 +28,3 @@ def create_empty_folder_tmp(path:str):
         for object in folder_list:
             old_path_name = os.path.join(path, object)
             os.rename(old_path_name, os.path.join(path, object + "_tmp"))
-)
