@@ -41,9 +41,9 @@ def get_sorted_by_death(filename_with_path:str) -> list:
     sorted_by_death = sorted(read_json(filename_with_path), key=sort_dict_key_for_death)
     return sorted_by_death
 
-def sort_dict_key_by_len_text(text:dict) -> int:
-    return len(text["text"])
+def sort_dict_key_by_word_count(text:dict) -> int:
+    return len(text["text"].split(" ")) # Разбил на слова
 
-def get_sorted_by_len_text(filename_with_path:str) -> list:
-    sorted_by_len_text = sorted(read_json(filename_with_path), key=sort_dict_key_by_len_text)
+def get_sorted_by_word_count(filename_with_path:str) -> list:
+    sorted_by_len_text = sorted(read_json(filename_with_path), key=sort_dict_key_by_word_count)
     return sorted_by_len_text
