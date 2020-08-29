@@ -17,68 +17,42 @@ import string
 Также необходимо обязательно использовать РОВНО 9 символов перехода на новую строку (\n) В СЕРЕДИНЕ данной строки.
 """
 
-# Первая задача была тяжкой, поэтому на выходе вышла химера. Но все условия выполняет.        Вроде....
+def create_string(len_string, symbols_for_string = (string.ascii_letters + string.digits + ",.;:")) -> str:
+    my_string = ""
+    while len(my_string) != len_string:
+        my_string += symbols_for_string[random.randint(0, len(symbols_for_string) - 1)]
+    return my_string
 
-# Вместо функций ниже.
+def get_nine_carryover_positions(len_string, count_unique_positions = 9) -> list:
+    nine_random_carryover_positions = []
+    while len(nine_random_carryover_positions) != count_unique_positions:
+        random_position = random.randint(1, len_string - 1)
+        if random_position not in nine_random_carryover_positions:
+            nine_random_carryover_positions.append(random_position)
+    return nine_random_carryover_positions
 
-def get_nine_random(random_len_string):
-    nine_random = []
-    while len(nine_random) != 9:
-        if random.randint(1, random_len_string - 1) not in nine_random:
-            nine_random.append(random.randint(1, random_len_string - 1))
+def past_symbol_in_string(len_string = random.randint(100, 1000), symbol = "\n"):
+    my_string = create_string(len_string=len_string)
+    carryover_positions = get_nine_carryover_positions(len_string=len_string)
+    for position in carryover_positions:
+        new = my_string.replace(my_string[position], my_string[position] + symbol)
+    return new
+tet = "2345"
 
-# def get_index_in_random_len_range(random_len_string:int) -> list:
-#     """
-#     Функция которая генерирует номера позиций(индексы) в заданом случайном интервале.
-#     :param random_len_string: лучайная длина строкиС
-#     :return: Список индексов
-#     """
-#     index_in_random_len_range = []
-#     for i in range(random_len_string):
-#         index_in_random_len_range.append(i)
-#     return index_in_random_len_range
 
-# def get_index_in_random_len_without_first_and_last_positions(random_len_string:int) -> list:
-#     """
-#     Функция которая отбрасывает первый и последний индекс. На занятии условились чтобы переносов небыло в начале и конце.
-#     :param random_len_string: Cлучайная длина строки(пробрасываю через все функции, не уверен реализовал как надо)
-#     :return: Список индексов без первого и последнего элемента
-#     """
-#     index_in_random_len_without_first_and_last_positions = get_index_in_random_len_range(random_len_string)
-#     index_in_random_len_without_first_and_last_positions.pop(0)
-#     index_in_random_len_without_first_and_last_positions.pop(-1)
-#     return index_in_random_len_without_first_and_last_positions
-
-# def get_nine_random_carryover_positions(random_len_string:int) -> list:
-#     """
-#     Функция которая выдергивает из get_index_in_random_len_without_first_and_last_positions случайные позиции.
-#     Пытался сделать читабельнее, по сравнению с тем что было в начале уже лучше.
-#     :param random_len_string: Cлучайная длина строки(пробрасываю через все функции, не уверен реализовал как надо)
-#     :return: Список из 9 элементов которые обозначают места на которых будут происходить переносы строки.
-#     """
-#     len_index_list = len(get_index_in_random_len_without_first_and_last_positions(random_len_string)) # Длина большого списка для переносов
-#     last_index_in_index_in_index_list = len_index_list - 1 # Последний индекс большого списка для переносов
-#     positions_list = get_index_in_random_len_without_first_and_last_positions(random_len_string) # Большой список с позициями в заданом случайном диапазоне без первого и последнего элемента
-#     nine_carryover_positions = [] # Список с случайными позициями для переноса (9 штук)
-#     while len(nine_carryover_positions) != 9: # Набираем 9 штук.
-#         random_index = random.randint(0, last_index_in_index_in_index_list) # Случайный индекс
-#         random_position = positions_list[random_index] # Из большого списка наугад выбираем позицию в заданом диапазоне
-#         if random_position not in nine_carryover_positions: # Если такого элемента там нет, то записываем.
-#             nine_carryover_positions.append(random_position)
-#     return nine_carryover_positions
-
-def create_random_data_for_txt_file(random_len_string=random.randint(100, 1000)) -> str:
+print(tet.replace("2", "F"))
+def create_data_for_txt_file(len_string=random.randint(100, 1000)) -> str:
     """
     Функция которая создает случайную строку для записи в txt файл.
-    :param random_len_string: Cлучайная длина строки(пробрасываю через все функции, не уверен реализовал как надо)
+    :param len_string: Cлучайная длина строки(пробрасываю через все функции, не уверен реализовал как надо)
     :return: Строку с переносами
     """
-    nine_random_carryover_positions = get_nine_random_carryover_positions(random_len_string) # Наши 9 случайных позиций где нужно сделать перенос
+    nine_random_carryover_positions = get_nine_carryover_positions(len_string) # Наши 9 случайных позиций где нужно сделать перенос
     if len(nine_random_carryover_positions) == 9: # Проверка на случай если что-то пойдет не так и количество переносов будет меньше или больше 9. Это больше было нужно для проверки работы. Но пусть будет.
         my_string = ""
         random_char = "1234567890QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm ,.:;" # Хотел использовать модуль Стринг, но не хотел грузить файл. Двоеточие вроде ж тоже знак препинания(я надеюсь)
         len_random_char = len(random_char) # Выбираем наугад любой символ
-        while len(my_string) != random_len_string: # Пока строка не будет заданой длины, то записываем в нее символы
+        while len(my_string) != len_string: # Пока строка не будет заданой длины, то записываем в нее символы
             for position in nine_random_carryover_positions: # Проходим по списку позиций для переноса
                 if len(my_string) == position: # Немного моей странной логики. Если в списке из 9 значений будет значение 0, то перенос должен произойти в начале строки. Также для последнего элемента.
                     my_string += "\n"          # От них я избавился в функции get_index_in_random_len_without_first_and_last_positions (наверно можно было и по другому) и тут они не выскочат.
@@ -118,6 +92,7 @@ def create_random_data_for_json_file() -> dict:
 
 
 """
+
 Функция 3. Создает данные для записи в файл csv.
 Создает и возвращает список длинны n внутренних списков длинны m (таблица с n строк и m столбцов).
 Числа n и m выбираются случайно в диапазоне от 3 до 10.
@@ -148,7 +123,7 @@ def create_random_data_for_csv_file() -> list:
 
 def write_file_in_txt(filename_with_path):
     with open(filename_with_path, 'w') as txt_file:
-        txt_file.write(create_random_data_for_txt_file())
+        txt_file.write(past_symbol_in_string())
 
 def write_file_in_json(filename_with_path):
     with open(filename_with_path, 'w') as json_file:
@@ -170,6 +145,6 @@ def file_writer(filename_with_path):
         raise Exception("Unsupported file format!")
 
 file_writer("./testdir/1.txt")
-file_writer("./testdir/1.json")
-file_writer("./testdir/1.csv")
+# file_writer("./testdir/1.json")
+# file_writer("./testdir/1.csv")
 # file_writer("./testdir/1.jpeg")
