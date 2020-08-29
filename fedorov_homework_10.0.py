@@ -19,45 +19,53 @@ import string
 
 # Первая задача была тяжкой, поэтому на выходе вышла химера. Но все условия выполняет.        Вроде....
 
-def get_index_in_random_len_range(random_len_string:int) -> list:
-    """
-    Функция которая генерирует номера позиций(индексы) в заданом случайном интервале.
-    :param random_len_string: лучайная длина строкиС
-    :return: Список индексов
-    """
-    index_in_random_len_range = []
-    for i in range(random_len_string):
-        index_in_random_len_range.append(i)
-    return index_in_random_len_range
+# Вместо функций ниже.
 
-def get_index_in_random_len_without_first_and_last_positions(random_len_string:int) -> list:
-    """
-    Функция которая отбрасывает первый и последний индекс. На занятии условились чтобы переносов небыло в начале и конце.
-    :param random_len_string: Cлучайная длина строки(пробрасываю через все функции, не уверен реализовал как надо)
-    :return: Список индексов без первого и последнего элемента
-    """
-    index_in_random_len_without_first_and_last_positions = get_index_in_random_len_range(random_len_string)
-    index_in_random_len_without_first_and_last_positions.pop(0)
-    index_in_random_len_without_first_and_last_positions.pop(-1)
-    return index_in_random_len_without_first_and_last_positions
+def get_nine_random(random_len_string):
+    nine_random = []
+    while len(nine_random) != 9:
+        if random.randint(1, random_len_string - 1) not in nine_random:
+            nine_random.append(random.randint(1, random_len_string - 1))
 
-def get_nine_random_carryover_positions(random_len_string:int) -> list:
-    """
-    Функция которая выдергивает из get_index_in_random_len_without_first_and_last_positions случайные позиции.
-    Пытался сделать читабельнее, по сравнению с тем что было в начале уже лучше.
-    :param random_len_string: Cлучайная длина строки(пробрасываю через все функции, не уверен реализовал как надо)
-    :return: Список из 9 элементов которые обозначают места на которых будут происходить переносы строки.
-    """
-    len_index_list = len(get_index_in_random_len_without_first_and_last_positions(random_len_string)) # Длина большого списка для переносов
-    last_index_in_index_in_index_list = len_index_list - 1 # Последний индекс большого списка для переносов
-    positions_list = get_index_in_random_len_without_first_and_last_positions(random_len_string) # Большой список с позициями в заданом случайном диапазоне без первого и последнего элемента
-    nine_carryover_positions = [] # Список с случайными позициями для переноса (9 штук)
-    while len(nine_carryover_positions) != 9: # Набираем 9 штук.
-        random_index = random.randint(0, last_index_in_index_in_index_list) # Случайный индекс
-        random_position = positions_list[random_index] # Из большого списка наугад выбираем позицию в заданом диапазоне
-        if random_position not in nine_carryover_positions: # Если такого элемента там нет, то записываем.
-            nine_carryover_positions.append(random_position)
-    return nine_carryover_positions
+# def get_index_in_random_len_range(random_len_string:int) -> list:
+#     """
+#     Функция которая генерирует номера позиций(индексы) в заданом случайном интервале.
+#     :param random_len_string: лучайная длина строкиС
+#     :return: Список индексов
+#     """
+#     index_in_random_len_range = []
+#     for i in range(random_len_string):
+#         index_in_random_len_range.append(i)
+#     return index_in_random_len_range
+
+# def get_index_in_random_len_without_first_and_last_positions(random_len_string:int) -> list:
+#     """
+#     Функция которая отбрасывает первый и последний индекс. На занятии условились чтобы переносов небыло в начале и конце.
+#     :param random_len_string: Cлучайная длина строки(пробрасываю через все функции, не уверен реализовал как надо)
+#     :return: Список индексов без первого и последнего элемента
+#     """
+#     index_in_random_len_without_first_and_last_positions = get_index_in_random_len_range(random_len_string)
+#     index_in_random_len_without_first_and_last_positions.pop(0)
+#     index_in_random_len_without_first_and_last_positions.pop(-1)
+#     return index_in_random_len_without_first_and_last_positions
+
+# def get_nine_random_carryover_positions(random_len_string:int) -> list:
+#     """
+#     Функция которая выдергивает из get_index_in_random_len_without_first_and_last_positions случайные позиции.
+#     Пытался сделать читабельнее, по сравнению с тем что было в начале уже лучше.
+#     :param random_len_string: Cлучайная длина строки(пробрасываю через все функции, не уверен реализовал как надо)
+#     :return: Список из 9 элементов которые обозначают места на которых будут происходить переносы строки.
+#     """
+#     len_index_list = len(get_index_in_random_len_without_first_and_last_positions(random_len_string)) # Длина большого списка для переносов
+#     last_index_in_index_in_index_list = len_index_list - 1 # Последний индекс большого списка для переносов
+#     positions_list = get_index_in_random_len_without_first_and_last_positions(random_len_string) # Большой список с позициями в заданом случайном диапазоне без первого и последнего элемента
+#     nine_carryover_positions = [] # Список с случайными позициями для переноса (9 штук)
+#     while len(nine_carryover_positions) != 9: # Набираем 9 штук.
+#         random_index = random.randint(0, last_index_in_index_in_index_list) # Случайный индекс
+#         random_position = positions_list[random_index] # Из большого списка наугад выбираем позицию в заданом диапазоне
+#         if random_position not in nine_carryover_positions: # Если такого элемента там нет, то записываем.
+#             nine_carryover_positions.append(random_position)
+#     return nine_carryover_positions
 
 def create_random_data_for_txt_file(random_len_string=random.randint(100, 1000)) -> str:
     """
