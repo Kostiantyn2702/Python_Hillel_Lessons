@@ -34,19 +34,18 @@ def create_random_key(len_key = 5) -> str:
     return create_random_string(len_key, string.ascii_lowercase)
 
 def create_random_value() -> int:
-    one_of_three = random.randint(1, 3)
-    if one_of_three == 1:
+    type_of_value = random.randint(1, 3)
+    if type_of_value == 1:
         value = random.randint(-100, 100)
-    elif one_of_three == 2:
+    elif type_of_value == 2:
         value = random.random()
     else:
         value = bool(random.randint(0, 1))
     return value
 
-def create_random_data_for_json_file() -> dict:
+def create_random_data_for_json_file(key_count = random.randint(5, 20)) -> dict:
     data = {}
-    random_len_key = random.randint(5, 20)
-    while len(data) != random_len_key:
+    while len(data) != key_count:
         data[create_random_key()] = create_random_value()
     return data
 
@@ -56,27 +55,26 @@ def create_random_m_list(random_len_data_m = random.randint(3, 10)) -> list:
         data_m.append(random.randint(0, 1))
     return data_m
 
-def create_random_data_for_csv_file() -> list:
+def create_random_data_for_csv_file(random_len_data_n = random.randint(3, 10)) -> list:
     data_n = []
-    random_len_data_n = random.randint(3, 10)
     while len(data_n) != random_len_data_n:
         data_n.append(create_random_m_list())
     return data_n
 
-def write_file_in_txt(filename_with_path):
+def write_file_in_txt(filename_with_path:str):
     with open(filename_with_path, 'w') as txt_file:
         txt_file.write(create_data_for_txt_file())
 
-def write_file_in_json(filename_with_path):
+def write_file_in_json(filename_with_path:str):
     with open(filename_with_path, 'w') as json_file:
         json.dump(create_random_data_for_json_file(), json_file)
 
-def write_file_in_csv(filename_with_path):
+def write_file_in_csv(filename_with_path:str):
     with open(filename_with_path, 'w') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerows(create_random_data_for_csv_file())
 
-def file_writer(filename_with_path):
+def file_writer(filename_with_path:str):
     if filename_with_path.endswith(".txt"):
         write_file_in_txt(filename_with_path)
     elif filename_with_path.endswith(".json"):
