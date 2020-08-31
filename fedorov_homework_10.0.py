@@ -3,7 +3,7 @@ import csv
 import random
 import string
 
-def create_random_string(len_string:int, symbols_for_string = (string.ascii_letters + string.digits + ",.;:")) -> str:
+def create_random_string(len_string:int, symbols_for_string = (string.ascii_letters + string.digits + ",.;:" + " ")) -> str:
     my_string = ""
     while len(my_string) != len_string:
         my_string += symbols_for_string[random.randint(0, len(symbols_for_string) - 1)]
