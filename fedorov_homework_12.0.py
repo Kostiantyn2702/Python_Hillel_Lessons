@@ -76,57 +76,58 @@ class My15:
             self.my_15[row][col] = self.my_15[row][col - 1]
             self.my_15[row][col - 1] = space
 
-
-def field_print(game):
-    print("_______________")
-    game.print_15()
-    print("_______________")
-
-def loop_actions(game):
-    solution = [["1", "2", "3", "4"],["5", "6", "7", "8"],["9", "10", "11", "12"], ["13", "14", "15", ""]]
-    if game.my_15 == solution:
-        congratulations = "Вы победили!"
-        return print(congratulations)
-    return actions(input(), game)
-
-def actions(acting:str, game):
-    if acting == "w":
-        game.move_up()
-        field_print(game)
-        return loop_actions(game)
-    elif acting == "s":
-        game.move_down()
-        field_print(game)
-        return loop_actions(game)
-    elif acting == "d":
-        game.move_right()
-        field_print(game)
-        return loop_actions(game)
-    elif acting == "a":
-        game.move_left()
-        field_print(game)
-        return loop_actions(game)
-    else:
-        print("Вы нажали неверную кнопку!")
-        field_print(game)
-        return loop_actions(game)
-
-def start_the_game():
-    game = My15()
-    print("Чтобы начать игру, нажмите 1.\nЧтобы выйти, нажмите 2.")
-    acting = input()
-    if acting == "1":
-        print("Это ваше поле.")
+    def field_print(self):
         print("_______________")
-        game.print_15()
+        self.print_15()
         print("_______________")
-        print("Выберите действие из списка: "
-              "\nЧтобы передвинуть 'пустоту' вверх нажмите w."
-              "\nЧтобы передвинуть 'пустоту' вниз нажмите s."
-              "\nЧтобы передвинуть 'пустоту' вправо нажмите d."
-              "\nЧтобы передвинуть 'пустоту' влево нажмите a.")
-        actions(input(), game)
-    else:
-        print("Досвидания!")
 
-start_the_game()
+    def loop_actions(self):
+        solution = [["1", "2", "3", "4"],["5", "6", "7", "8"],["9", "10", "11", "12"], ["13", "14", "15", ""]]
+        if self.my_15 == solution:
+            congratulations = "Вы победили!"
+            return print(congratulations)
+        return self.actions(input())
+
+    def actions(self, acting:str):
+        if acting == "w":
+            self.move_up()
+            self.field_print()
+            return self.loop_actions()
+        elif acting == "s":
+            self.move_down()
+            self.field_print()
+            return self.loop_actions()
+        elif acting == "d":
+            self.move_right()
+            self.field_print()
+            return self.loop_actions()
+        elif acting == "a":
+            self.move_left()
+            self.field_print()
+            return self.loop_actions()
+        else:
+            print("Вы нажали неверную кнопку!")
+            self.field_print()
+            return self.loop_actions()
+
+    def start_the_game(self):
+        # game = My15()
+        print("Чтобы начать игру, нажмите 1.\nЧтобы выйти, нажмите 2.")
+        acting = input()
+        if acting == "1":
+            print("Это ваше поле.")
+            print("_______________")
+            self.print_15()
+            print("_______________")
+            print("Выберите действие из списка: "
+                  "\nЧтобы передвинуть 'пустоту' вверх нажмите w."
+                  "\nЧтобы передвинуть 'пустоту' вниз нажмите s."
+                  "\nЧтобы передвинуть 'пустоту' вправо нажмите d."
+                  "\nЧтобы передвинуть 'пустоту' влево нажмите a.")
+            self.actions(input())
+        else:
+            print("Досвидания!")
+
+my_15 = My15()
+
+my_15.start_the_game()
