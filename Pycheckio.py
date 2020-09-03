@@ -2,6 +2,7 @@
 # import datetime
 # import math
 
+
 """
 Ваше задание здесь создать функцию, которая получает массив(tuple) и возвращает набор с 3 элементами - первым, третьим, вторым с конца.
 """
@@ -280,3 +281,136 @@ The text consists from numbers, spaces and english letters
 #
 # def days_diff(a, b):
 #     return abs((date(*a)-date(*b)).days)
+
+"""You need to count the number of digits in a given string."""
+
+# def count_digits(text: str) -> int:
+#     count = 0
+#     for i in text:
+#         if i.isdigit():
+#             count += 1
+#     return count
+
+"""In a given string you should reverse every word, but the words should stay in their places."""
+
+# def backward_string_by_word(text: str) -> str:
+#     list_text = text.split(" ")
+#     new = []
+#     for word in list_text:
+#         new.append(word[::-1])
+#     return " ".join(new)
+
+"""Дана таблица всех доступных продуктов на складе. Данные представлены в виде списка словарей (a list of dicts)
+Ваша миссия тут - это найти ТОП самых дорогих товаров. Количество товаров, которые мы ищем, будет передано в первом аргументе, а сами данные по товарам будут переданы вторым аргументом."""
+
+# def sort_dict_key(value_dict:dict) -> int:
+#     return value_dict["price"]
+#
+# def get_sorted_by(list_price) -> list:
+#     sorted_by = sorted(list_price, key=sort_dict_key, reverse=True)
+#     return sorted_by
+#
+# def bigger_price(limit: int, data: list) -> list:
+#     return get_sorted_by(data)[:limit]
+
+"""Дан непустой массив целых чисел (X). В этой задаче вам нужно вернуть массив, состоящий только из неуникальных элементов данного массива. 
+Для этого необходимо удалить все уникальные элементы (которые присутствуют в данном массиве только один раз). 
+Для решения этой задачи не меняйте оригинальный порядок элементов. 
+Пример: [1, 2, 3, 1, 3], где 1 и 3 неуникальные элементы и результат будет [1, 3, 1, 3]."""
+
+# def checkio(data: list) -> list:
+#     new_data = []
+#     for i in data:
+#         if data.count(i) > 1:
+#             new_data.append(i)
+#     return new_data
+
+"""Ваша задача в этой миссии определить популярность определенных слов в тексте.
+На вход вашей функции передается 2 аргумента. Текст и массив слов, популярность которых необходимо определить.
+При решении этой задачи обратите внимание на следующие моменты
+Слова необходимо искать во всеx регистрах. Т.е. если необходимо найти слово "one", значит для него будут подходить слова "one", "One", "oNe", "ONE" и.т.д.
+Искомые слова всегда указаны в нижнем регистре
+Если слово не найдено ни разу, то его необходимо вернуть в словаре со значением 0 (ноль)"""
+
+# def popular_words(text: str, words: list) -> dict:
+#     list_text = text.lower().replace("\n", " ").split(" ")
+#     print(list_text)
+#     new_dict = {}
+#     for word in words:
+#         new_dict[word] = list_text.count(word)
+#     return new_dict
+
+"""Даны 2 строки. Необходимо найти индекс второго вхождения второй строки в первую.
+
+Разберем самый первый пример, когда необходимо найти второе вхождение "s" в слове "sims". 
+Если бы нам надо было найти ее первое вхождение, 
+то тут все просто: с помощью функции index или find мы можем узнать, что "s" – это самый первый символ в слове "sims", 
+а значит индекс первого вхождения равен 0. 
+Но нам необходимо найти вторую "s", а она 4-ая по счету. 
+Значит индекс второго вхождения (и ответ на вопрос) равен 3."""
+
+# def second_index(text: str, symbol: str) -> [int, None]:
+#     count = 0
+#     for index, i in enumerate(text):
+#         if i == symbol:
+#             if count == 1:
+#                 return index
+#             count = 1
+#     return None if count == 0 else None
+
+"""Отсортируйте данный итератор таким образом, чтобы его элементы оказались в порядке убывания частоты их появления, 
+то есть по количеству раз, которое они появляются в элементах. 
+Если два элемента имеют одинаковую частоту, они должны оказаться в том же порядке, в котором стояли изначально в итераторе."""
+
+
+def frequency_sort(items):
+    # your code here
+    return None
+
+
+my_list = [4, 6, 2, 2, 6, 4, 4, 4]
+
+my_list_dict = []
+for key in my_list:
+    if {key: my_list.count(key)} not in my_list_dict:
+        my_list_dict.append({key: my_list.count(key)})
+
+def sort_dict_key_for_surname(value_dict: dict) -> str:
+    for i in value_dict:
+        return value_dict[i]
+
+
+def get_sorted_by_surname(my_dict) -> list:
+    sorted_by_surname = sorted(my_dict, key=sort_dict_key_for_surname, reverse=True)
+    return sorted_by_surname
+
+
+# print(get_sorted_by_surname(my_list_dict))
+
+new_list = []
+
+# for index, dict in enumerate(get_sorted_by_surname(my_list_dict)):
+#     for key in dict:
+#         while new_list.count(key) != key:
+#             new_list.append(dict[key])
+
+
+
+# print(new_list)
+
+my_dict = {}
+for key in my_list:
+    if key not in my_dict:
+        my_dict[key] = my_list.count(key)
+
+print(my_dict)
+
+my_revers_dict = {}
+
+for key in my_dict:
+    print(key)
+    if key in my_revers_dict:
+        my_revers_dict[my_dict[key]] = key
+    my_revers_dict[my_dict[key]] = key
+
+print(my_revers_dict)
