@@ -86,9 +86,9 @@ class My15:
         if self.my_15 == solution:
             congratulations = "Вы победили!"
             return print(congratulations)
-        return self.actions(input())
+        return self.do_actions(input())
 
-    def actions(self, acting:str):
+    def do_actions(self, acting:str):
         if acting == "w":
             self.move_up()
             self.field_print()
@@ -124,7 +124,7 @@ class My15:
                   "\nЧтобы передвинуть 'пустоту' вниз нажмите s."
                   "\nЧтобы передвинуть 'пустоту' вправо нажмите d."
                   "\nЧтобы передвинуть 'пустоту' влево нажмите a.")
-            self.actions(input())
+            self.do_actions(input())
         else:
             print("Досвидания!")
 
