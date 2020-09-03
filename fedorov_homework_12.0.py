@@ -42,11 +42,9 @@ class My15:
         if row == 0:
             print("Нельзя передвинуть за границу поля!")
             print("###############################")
-            # return self.print_15()
         else:
             self.my_15[row][col] = self.my_15[row - 1][col]
             self.my_15[row - 1][col] = space
-            # return self.print_15() # ВОзвращает новую, а потом старую позицию
 
     def move_down(self):
         row, col = self.get_space()
@@ -54,11 +52,9 @@ class My15:
         if row == 3:
             print("Нельзя передвинуть за границу поля!")
             print("###############################")
-            # return self.print_15()
         else:
             self.my_15[row][col] = self.my_15[row + 1][col]
             self.my_15[row + 1][col] = space
-            # return self.print_15()
 
     def move_right(self):
         row, col = self.get_space()
@@ -66,11 +62,9 @@ class My15:
         if col == 3:
             print("Нельзя передвинуть за границу поля!")
             print("###############################")
-            # return self.print_15()
         else:
             self.my_15[row][col] = self.my_15[row][col + 1]
             self.my_15[row][col + 1] = space
-            # return self.print_15()
 
     def move_left(self):
         row, col = self.get_space()
@@ -78,42 +72,44 @@ class My15:
         if col == 0:
             print("Нельзя передвинуть за границу поля!")
             print("###############################")
-            # return self.print_15()
         else:
             self.my_15[row][col] = self.my_15[row][col - 1]
             self.my_15[row][col - 1] = space
-            # return self.print_15()
+    #
+    # def dont_move(self):
+    #     pass
 
-    def dont_move(self):
-        pass
+def field_print(game):
+    print("_______________")
+    game.print_15()
+    print("_______________")
 
 def loop_actions(game):
+    solution = [["1", "2", "3", "4"],["5", "6", "7", "8"],["9", "10", "11", "12"], ["13", "14", "15", ""]]
+    if game.my_15 == solution:
+        congratulations = "Вы победили!"
+        return print(congratulations)
     return actions(input(), game)
 
 def actions(acting:str, game):
     if acting == "w":
-        game.move_up() # Меняет my_15
-        game.print_15() # Возвращает новое положение
-        print("_______________")
+        game.move_up()
+        field_print(game)
         return loop_actions(game)
     elif acting == "s":
         game.move_down()
-        game.print_15()
-        print("_______________")
+        field_print(game)
         return loop_actions(game)
     elif acting == "d":
         game.move_right()
-        game.print_15()
-        print("_______________")
+        field_print(game)
         return loop_actions(game)
     elif acting == "a":
         game.move_left()
-        game.print_15()
-        print("_______________")
+        field_print(game)
         return loop_actions(game)
     else:
-        game.print_15()
-        print("_______________")
+        field_print(game)
         return loop_actions(game)
 
 def start_the_game():
@@ -136,8 +132,9 @@ def start_the_game():
 
 start_the_game()
 
-my_15 = My15()
 
+my_15 = My15()
+print(my_15.my_15)
 
 # my_15.print_15()
 # print("###############################")
