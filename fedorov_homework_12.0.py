@@ -75,9 +75,7 @@ class My15:
         else:
             self.my_15[row][col] = self.my_15[row][col - 1]
             self.my_15[row][col - 1] = space
-    #
-    # def dont_move(self):
-    #     pass
+
 
 def field_print(game):
     print("_______________")
@@ -109,6 +107,7 @@ def actions(acting:str, game):
         field_print(game)
         return loop_actions(game)
     else:
+        print("Вы нажали неверную кнопку!")
         field_print(game)
         return loop_actions(game)
 
@@ -131,12 +130,3 @@ def start_the_game():
         print("Досвидания!")
 
 start_the_game()
-
-
-my_15 = My15()
-print(my_15.my_15)
-
-# my_15.print_15()
-# print("###############################")
-# my_15.move_left()
-# print("Строка ", my_15.get_space()[0] + 1, "Столбец ", my_15.get_space()[1] + 1)
