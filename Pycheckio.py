@@ -391,3 +391,134 @@ The text consists from numbers, spaces and english letters
 # def frequency_sort(items):
 #     return sorted(items, key=lambda x: (-items.count(x), items.index(x)))
 
+"""
+Шахматы - это стратегическая игра двух игроков, которая разыгрывается на игровой доске с клетками, расположенными в восьми рядах (называемых горизонталями и обозначаемых цифрами от 1 до 8) 
+и в восьми колонках (называемых вертикалями и обозначаемых буквами от a до h). 
+Каждая клетка доски идентифицируется уникальной парой координат, состоящей из буквы и цифры (например, "a1", "h8", "d6"). 
+В этой задаче мы будем иметь дело только с пешками. Пешка может бить пешку противника, которая находится перед ней в соседней клетке по диагонали справа или слева, переходя в эту клетку. 
+У белых пешек клетки перед ними имеют номер горизонтали на единицу больше.
+
+Сама по себе пешка является слабой фигурой, но мы можем использовать до восьми пешек для построения оборонительной стены. 
+Стратегия оборонительной стены основывается на защите друг друга. Пешка защищена, если её клетка находится по ударом другой своей пешки. 
+На игровом поле находятся только белые пешки. Вы должны разработать код, позволяющий определить сколько пешек защищены в этой позиции.
+
+Вам предоставляется набор координат, в которых расставлены белые пешки. Вы должны подсчитать количество защищенных пешек.
+"""
+
+# import string
+#
+# letters = string.ascii_lowercase
+#
+# def get_conditions(position):
+#     pawn_position = letters.find(position[0])
+#     first_condition = letters[pawn_position - 1] + str(int(position[1]) - 1)
+#     second_condition = letters[pawn_position + 1] + str(int(position[1]) - 1)
+#     return first_condition, second_condition
+#
+# def is_pawn_safe(position, my_dict):
+#     first_condition, second_condition = get_conditions(position)
+#     if first_condition in my_dict or second_condition in my_dict:
+#         return 1
+#     else:
+#         return 0
+#
+# def safe_pawns(pawns) -> int:
+#     count = 0
+#     for position in pawns:
+#         if is_pawn_safe(position, pawns):
+#             count += 1
+#     return count
+
+# def getdiags(pawn):
+#     c, r = map(ord, pawn)
+#     return chr(c - 1) + chr(r - 1), chr(c + 1) + chr(r - 1)
+#
+# def safe_pawns(pawns):
+#     return len([p for p in pawns if any(d in pawns for d in getdiags(p))]
+
+"""
+Ваша задача - определить угол солнца над горизонтом, зная время суток. 
+Исходные данные: солнце встает на востоке в 6:00, что соответствует углу 0 градусов. В 12:00 солнце в зените, а значит угол = 90 градусов. 
+В 18:00 солнце садится за горизонт и угол равен 180 градусов. 
+В случае, если указано ночное время (раньше 6:00 или позже 18:00), функция должна вернуть фразу "I don't see the sun!".
+"""
+
+# def sun_angle(time):
+#     one_hour_angle = 15
+#     one_min_angle = 0.25
+#     my_time = time.split(":")
+#     if int(my_time[0]) < 6 or int(my_time[0]) > 18 or int(my_time[0]) == 18 and int(my_time[1]) > 0:
+#         return "I don't see the sun!"
+#     else:
+#         return (int(my_time[0]) - 6) * one_hour_angle + (int(my_time[1]) * one_min_angle)
+#
+# def sun_angle(time):
+#     h, m = list(map(int, time.split(':')))
+#     angle = 15 * h + m / 4 - 90
+#     return angle if 0 <= angle <= 180 else "I don't see the sun!"
+
+"""
+You have to split a given array into two arrays. 
+If it has an odd amount of elements, then the first array should have more elements. 
+If it has no elements, then two empty arrays should be returned.
+"""
+
+# def split_list(items: list) -> list:
+#     new_list = []
+#     if not len(items) % 2:
+#         middle = len(items) // 2
+#         new_list.append(items[:middle])
+#         new_list.append(items[middle:])
+#     else:
+#         middle = int(len(items) / 2 + 0.5)
+#         new_list.append(items[:middle])
+#         new_list.append(items[middle:])
+#     return new_list
+#
+# def split_list(items: list) -> list:
+#     mid = (len(items) + 1) // 2
+#     return [items[:mid], items[mid:]]
+
+"""
+В этой миссии Вам надо определить, все ли элементы массива равны.
+"""
+
+# my_list = []
+# if len(set(my_list)) == 1 or len(set(my_list)) == 0:
+#     print("True")
+# else:
+#     print("False")
+#
+# def all_the_same(elements):
+#    return elements[1:] == elements[:-1]
+
+"""
+Компьютерный формат даты и времени обычно выглядит так: 21.05.2018 16:30
+Люди предпочитают видеть эту же информацию в более развернутом виде: 21 May 2018 year, 16 hours 30 minutes
+Ваша задача - преобразовать дату и время из числового формата и словесно-числовой.
+"""
+
+import re
+
+def date_time(time: str) -> str:
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    reg_exp = r"[0-9]{2,4}"
+    result = re.findall(reg_exp, time)
+    day = str(int(result[0]))
+    month = months[int(result[1]) - 1]
+    year = result[2]
+    hour = int(result[3])
+    if hour == 1:
+        hour = str(hour) + " hour"
+    else:
+        hour = str(hour) + " hours"
+    minute = int(result[4])
+    if minute == 1:
+        minute = str(minute) + " minute"
+    else:
+        minute = str(minute) + " minutes"
+
+    new_string = f"{day} {month} {year} year {hour} {minute}"
+    return new_string
+
+print(date_time("01.01.2000 00:00"))
