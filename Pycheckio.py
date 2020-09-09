@@ -362,55 +362,32 @@ The text consists from numbers, spaces and english letters
 то есть по количеству раз, которое они появляются в элементах. 
 Если два элемента имеют одинаковую частоту, они должны оказаться в том же порядке, в котором стояли изначально в итераторе."""
 
-
-def frequency_sort(items):
-    # your code here
-    return None
-
-
-my_list = [4, 6, 2, 2, 6, 4, 4, 4]
-
-my_list_dict = []
-for key in my_list:
-    if {key: my_list.count(key)} not in my_list_dict:
-        my_list_dict.append({key: my_list.count(key)})
-
-def sort_dict_key_for_surname(value_dict: dict) -> str:
-    for i in value_dict:
-        return value_dict[i]
-
-
-def get_sorted_by_surname(my_dict) -> list:
-    sorted_by_surname = sorted(my_dict, key=sort_dict_key_for_surname, reverse=True)
-    return sorted_by_surname
-
-
-# print(get_sorted_by_surname(my_list_dict))
-
-new_list = []
-
-# for index, dict in enumerate(get_sorted_by_surname(my_list_dict)):
-#     for key in dict:
-#         while new_list.count(key) != key:
-#             new_list.append(dict[key])
+# def get_max_count_and_value(my_list):
+#     max_count = 0
+#     max_count_value = 0
+#     for value in my_list:
+#         if max_count < my_list.count(value):
+#             max_count = my_list.count(value)
+#             max_count_value = value
+#     return max_count, max_count_value
+#
+# def del_max_count_and_append_value(my_list, new_list):
+#     max_count_value = get_max_count_and_value(my_list)[1]
+#     while max_count_value in my_list:
+#         for index, value in enumerate(my_list):
+#             if value == max_count_value:
+#                 new_list.append(my_list.pop(index))
+#
+# def create_sorted_list(my_list):
+#     new_list = []
+#     while len(my_list) != 0:
+#         del_max_count_and_append_value(my_list, new_list)
+#     return new_list
+#
+# def frequency_sort(my_list):
+#     return create_sorted_list(my_list)
 
 
+# def frequency_sort(items):
+#     return sorted(items, key=lambda x: (-items.count(x), items.index(x)))
 
-# print(new_list)
-
-my_dict = {}
-for key in my_list:
-    if key not in my_dict:
-        my_dict[key] = my_list.count(key)
-
-print(my_dict)
-
-my_revers_dict = {}
-
-for key in my_dict:
-    print(key)
-    if key in my_revers_dict:
-        my_revers_dict[my_dict[key]] = key
-    my_revers_dict[my_dict[key]] = key
-
-print(my_revers_dict)
