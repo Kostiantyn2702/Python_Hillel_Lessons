@@ -4,7 +4,7 @@ class Piece:
         self.place = place # Координата фигуры
         self.moves = [] # Возможные ходы фигуры
         self.takes = [] # Возможные атаки фигуры
-        self.target = "" # Цель атаки
+        self.target = "" # Цель атаки/хода
 
     def __repr__(self):
         return f"----------------\n" \
@@ -25,12 +25,13 @@ class Piece:
         raise Exception("must override in child class")
 
 
+
 class Pawn(Piece):
     def __init__(self, color, place):
         super().__init__(color, place)
         self.moves = self.get_moves()
         self.takes = self.get_takes()
-        self.target = self.new_target()
+        self.target = ""
 
     def _get_cell_up(self, place: str) -> str:
         place_number = int(place[-1]) # Цифреное значение координаты
@@ -88,8 +89,10 @@ class Pawn(Piece):
         place_number = int(self.place[-1])
         if self.color == "white":
             new_place = self._get_cell_up(self.place) if place_number < 8 else self.place
-        else:
+        elif self.color == "black":
             new_place = self._get_cell_down(self.place) if place_number > 1 else self.place
+        else:
+            new_place = "Вы ввели неправильный цвет!"
         return [new_place]
 
     def get_takes(self) -> list:
@@ -102,22 +105,27 @@ class Pawn(Piece):
             else:
                 takes.append("Атака влево невозможна!")
                 takes.append("Атака вправо невозможна!")
-        else:
+        elif self.color == "black":
             if place_number != 1:
                 takes.append(self._get_cell_diagonal_left_down(self.place))
                 takes.append(self._get_cell_diagonal_right_down(self.place))
             else:
                 takes.append("Атака влево невозможна!")
                 takes.append("Атака вправо невозможна!")
+        else:
+            takes.append("Вы ввели неправильный цвет!")
         return takes
 
-    def new_target(self) -> str:
+    def new_target(self):
         print("Выберите цель для хода.")
-        target = input()
-        return target
+        new_target = input()
+        self.move_on(new_target)
+        self.moves = self.get_moves()
+        self.takes = self.get_takes()
+        self.target = ""
 
-    def move_on(self):
-        pass
+    def move_on(self, target):
+        self.place = target
 
 class Queen(Piece):
     def __init__(self, color, place):
@@ -136,5 +144,7 @@ class Queen(Piece):
         return "A1"
 
 
-pawn = Pawn('white', 'D8')
+pawn = Pawn('black', 'D5')
+print(pawn)
+print(pawn.new_target())
 print(pawn)
