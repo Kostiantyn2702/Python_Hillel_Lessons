@@ -32,70 +32,92 @@ class Pawn(Piece):
         self.takes = self.get_takes()
         self.target = self.new_target()
 
-    def get_moves(self):
-        """
-        Функция которая передает варианты для хода пешек в зависимости от цвета
-        :return: Список возможных ходов для пешки
-        """
-        place_number = int(self.place[-1]) # Цифреное значение координаты
-        if self.color == "white": # Условие хода для белых пешек
-            new_place = self._get_cell_up(self.place) if place_number < 8 else self.place # Новая координата пешки если она не вверху доски
-        else: # Условие хода для черных пешек
-            new_place = self._get_cell_down(self.place) if place_number > 1 else self.place # Новая координата пешки если она не внизу доски
-        return [new_place]
-
-    def _get_cell_up(self, place:str) -> str:
-        """
-        Функция которая возвращает новую координату для хода пешки (белая)
-        :param place: Текущая координата пешки
-        :return: Новая координата пешки
-        """
+    def _get_cell_up(self, place: str) -> str:
         place_number = int(place[-1]) # Цифреное значение координаты
-        new_number = place_number + 1 # Новая позиция цифровой координаты
+        new_number = place_number + 1 if place_number < 8 else place_number
         new_place = place.replace(str(place_number), str(new_number)) # Новая координата на которую может пойти пешка (белая)
         return new_place
 
-    def _get_cell_down(self, place):
+    def _get_cell_down(self, place: str) -> str:
         place_number = int(place[-1])
-        new_number = place_number - 1
+        new_number = place_number - 1 if place_number > 1 else place_number
         new_place = place.replace(str(place_number), str(new_number))
         return new_place
 
-    def _get_cell_left(self, place):
+    def _get_cell_left(self, place: str) -> str:
         place_symbol = place[0]
-        new_symbol = chr(ord(place_symbol) - 1)
+        new_symbol = chr(ord(place_symbol) - 1) if place_symbol != "A" else place_symbol
+        new_place = place.replace(place_symbol, new_symbol)
+        return new_place # Новая буква
+
+    def _get_cell_right(self, place: str) -> str:
+        place_symbol = place[0]
+        new_symbol = chr(ord(place_symbol) + 1) if place_symbol != "H" else place_symbol
         new_place = place.replace(place_symbol, new_symbol)
         return new_place
 
-    def _get_cell_right(self, place):
-        place_symbol = place[0]
-        new_symbol = chr(ord(place_symbol) + 1)
-        new_place = place.replace(place_symbol, new_symbol)
+    def _get_cell_diagonal_left_up(self, place: str) -> str:
+        new_number = str(self._get_cell_up(place)[-1])
+        new_symbol = self._get_cell_left(place)[0]
+        new_place = new_symbol + new_number
+        new_place = self.place.replace(place, new_place)
         return new_place
 
-    def get_takes(self):
-        takes = [] # Пустой список для варантов атаки пешки
-        place_symbol = self.place[0] # Символьная координата пешки (Е2)
-        place_number = int(self.place[-1]) # Цифреная координата пешки
-        if self.color == "white": # Условия атаки для белых пешек
-            new_number = place_number + 1 if place_number < 8 else place_number # Вариант атаки если пешка не вверху поля
-            if place_symbol != "A": # Условия атаки пешки если она не вправом краю доски
-                left_symbol = chr(ord(place_symbol) - 1) # Символьная координата, атака влево
-                left_place = self.place.replace(place_symbol, left_symbol) # Координата для атаки влево (Е замена на D)
-                new_place = left_place.replace(str(place_number), str(new_number)) # Координата для атаки влево (2 замена на 3)
-                takes.append(new_place) # Итог Е2 заменили на D3
-            if place_symbol != "H": # Условия атаки пешки если она не влевом краю доски
-                right_symbol = chr(ord(place_symbol) + 1) # Символьная координата, атака вправо
-                right_place = self.place.replace(place_symbol, right_symbol) # Координата для атаки влево (Е замена на F)
-                new_place = right_place.replace(str(place_number), str(new_number)) # Координата для атаки влево (2 замена на 3)
-                takes.append(new_place) # Итог Е2 заменили на F3
+    def _get_cell_diagonal_right_up(self, place: str) -> str:
+        new_number = str(self._get_cell_up(place)[-1])
+        new_symbol = self._get_cell_right(place)[0]
+        new_place = new_symbol + new_number
+        new_place = self.place.replace(place, new_place)
+        return new_place
 
+    def _get_cell_diagonal_left_down(self, place: str) -> str:
+        new_number = str(self._get_cell_down(place)[-1])
+        new_symbol = self._get_cell_left(place)[0]
+        new_place = new_symbol + new_number
+        new_place = self.place.replace(place, new_place)
+        return new_place
 
+    def _get_cell_diagonal_right_down(self, place: str) -> str:
+        new_number = str(self._get_cell_down(place)[-1])
+        new_symbol = self._get_cell_right(place)[0]
+        new_place = new_symbol + new_number
+        new_place = self.place.replace(place, new_place)
+        return new_place
+
+    def get_moves(self) -> list:
+        place_number = int(self.place[-1])
+        if self.color == "white":
+            new_place = self._get_cell_up(self.place) if place_number < 8 else self.place
+        else:
+            new_place = self._get_cell_down(self.place) if place_number > 1 else self.place
+        return [new_place]
+
+    def get_takes(self) -> list:
+        takes = []
+        place_number = int(self.place[-1])
+        if self.color == "white":
+            if place_number != 8:
+                takes.append(self._get_cell_diagonal_left_up(self.place))
+                takes.append(self._get_cell_diagonal_right_up(self.place))
+            else:
+                takes.append("Атака влево невозможна!")
+                takes.append("Атака вправо невозможна!")
+        else:
+            if place_number != 1:
+                takes.append(self._get_cell_diagonal_left_down(self.place))
+                takes.append(self._get_cell_diagonal_right_down(self.place))
+            else:
+                takes.append("Атака влево невозможна!")
+                takes.append("Атака вправо невозможна!")
         return takes
 
-    def new_target(self):
-        return "A1"
+    def new_target(self) -> str:
+        print("Выберите цель для хода.")
+        target = input()
+        return target
 
+    def move_on(self):
+        pass
 
 class Queen(Piece):
     def __init__(self, color, place):
@@ -114,5 +136,5 @@ class Queen(Piece):
         return "A1"
 
 
-pawn = Pawn('white', 'E2')
+pawn = Pawn('white', 'D8')
 print(pawn)
