@@ -61,38 +61,21 @@ class Desk:
         self.desk_print = my_desk.replace(place, place + "/" + type_piece)
 
 desk = Desk()
-
+desk.add_piece_on("A2", "Pawn")
+desk.add_piece_on("B2", "Pawn")
+desk.add_piece_on("C2", "Pawn")
+desk.add_piece_on("D2", "Pawn")
+desk.add_piece_on("E2", "Pawn")
+desk.add_piece_on("F2", "Pawn")
+desk.add_piece_on("G2", "Pawn")
+desk.add_piece_on("H2", "Pawn")
+desk.add_piece_on("A1", "Bishop")
+desk.add_piece_on("H1", "Bishop")
+desk.add_piece_on("B1", "Knight")
+desk.add_piece_on("G1", "Knight")
+desk.add_piece_on("C1", "Rook")
+desk.add_piece_on("F1", "Rook")
+desk.add_piece_on("D1", "King")
+desk.add_piece_on("E1", "Queen")
+print(desk.desk_print)
 print(desk)
-
-desk.add_piece_on("A1", "Pawn")
-
-desk.add_piece_on("A3", "Pawn")
-
-print(desk)
-
-# print(desk.desk_print)
-# print(desk.get_piece_on("A1"))
-# print(desk.get_piece_on("A3"))
-#
-# desk.remove_piece_from("A1")
-#
-# print(desk.desk_print)
-# print(desk.get_piece_on("A1"))
-# print(desk.get_piece_on("A3"))
-#
-# desk.remove_piece_from("A1")
-#
-# print(desk.desk_print)
-
-# my_desk_print = """
-#         | A8 | B8 | C8 | D8 | E8 | F8 | G8 | H8 |
-#         | A7 | B7 | C7 | D7 | E7 | F7 | G7 | H7 |
-#         | A6 | B6 | C6 | D6 | E6 | F6 | G6 | H6 |
-#         | A5 | B5 | C5 | D5 | E5 | F5 | G5 | H5 |
-#         | A4 | B4 | C4 | D4 | E4 | F4 | G4 | H4 |
-#         | A3/Pawn | B3 | C3 | D3 | E3 | F3 | G3 | H3 |
-#         | A2 | B2 | C2 | D2 | E2 | F2 | G2 | H2 |
-#         | A1 | B1 | C1 | D1 | E1 | F1 | G1 | H1 |
-#                             """
-
-# print(my_desk_print.count("Pawn"))
