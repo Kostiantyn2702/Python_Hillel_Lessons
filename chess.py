@@ -24,7 +24,96 @@ class Piece:
     def new_target(self):
         raise Exception("must override in child class")
 
+    def _get_cell_up(self, place: str, piece_move = 1):
+        all_place_up = []
+        place_number = int(place[-1])
+        pawn_move = place_number + piece_move
+        while place_number != pawn_move:
+            new_number = place_number + 1 if place_number < 8 else place_number
+            new_place = place.replace(str(place_number), str(new_number))
+            all_place_up.append(new_place)
+            place = new_place
+            place_number += 1
+        return all_place_up
 
+    def _get_cell_down(self, place: str, piece_move = 1):
+        all_place_down = []
+        place_number = int(place[-1])
+        pawn_move = place_number - piece_move
+        while place_number != pawn_move:
+            new_number = place_number - 1 if place_number > 1 else place_number
+            new_place = place.replace(str(place_number), str(new_number))
+            all_place_down.append(new_place)
+            place = new_place
+            place_number -= 1
+        return all_place_down
+
+    def _get_cell_left(self, place: str):
+        all_place_left = []
+        place_symbol = place[0]
+        while place_symbol != "A":
+            new_symbol = chr(ord(place_symbol) - 1) if place_symbol != "A" else place_symbol
+            new_place = place.replace(place_symbol, new_symbol)
+            all_place_left.append(new_place)
+            place = new_place
+            place_symbol = new_symbol
+        return all_place_left # Новая буква
+
+    def _get_cell_right(self, place: str):
+        all_place_right = []
+        place_symbol = place[0]
+        while place_symbol != "H":
+            new_symbol = chr(ord(place_symbol) + 1) if place_symbol != "H" else place_symbol
+            new_place = place.replace(place_symbol, new_symbol)
+            all_place_right.append(new_place)
+            place = new_place
+            place_symbol = new_symbol
+        return all_place_right
+
+    def _get_cell_diagonal_left_up(self, place: str, piece_move = 1):
+        count = 1
+        all_diagonal_left_up = []
+        cell_up = self._get_cell_up(place, piece_move)
+        for place_symbol in cell_up:
+            new_symbol = place_symbol.replace(place_symbol[0], chr(ord(place_symbol[0]) - count))
+            if "@" not in new_symbol:
+                all_diagonal_left_up.append(new_symbol)
+                count += 1
+        return all_diagonal_left_up
+
+    def _get_cell_diagonal_right_up(self, place: str, piece_move = 1):
+        count = 1
+        all_diagonal_right_up = []
+        cell_up = self._get_cell_up(place, piece_move)
+        for place_symbol in cell_up:
+            new_symbol = place_symbol.replace(place_symbol[0], chr(ord(place_symbol[0]) + count))
+            if "I" not in new_symbol:
+                all_diagonal_right_up.append(new_symbol)
+                count += 1
+        return all_diagonal_right_up
+
+    def _get_cell_diagonal_left_down(self, place: str, piece_move = 1):
+        count = 1
+        all_diagonal_left_down = []
+        cell_down = self._get_cell_down(place, piece_move)
+        for place_symbol in cell_down:
+            new_symbol = place_symbol.replace(place_symbol[0], chr(ord(place_symbol[0]) - count))
+            if "@" not in new_symbol:
+                all_diagonal_left_down.append(new_symbol)
+                count += 1
+        return all_diagonal_left_down
+
+
+    def _get_cell_diagonal_right_down(self, place: str, piece_move) -> list:
+        count = 1
+        all_diagonal_right_down = []
+        cell_down = self._get_cell_down(place, piece_move)
+        for place_symbol in cell_down:
+            new_symbol = place_symbol.replace(place_symbol[0], chr(ord(place_symbol[0]) + count))
+            if "I" not in new_symbol:
+                all_diagonal_right_down.append(new_symbol)
+                count += 1
+        return all_diagonal_right_down
 
 class Pawn(Piece):
     def __init__(self, color, place):
@@ -32,58 +121,6 @@ class Pawn(Piece):
         self.moves = self.get_moves()
         self.takes = self.get_takes()
         self.target = ""
-
-    def _get_cell_up(self, place: str) -> str:
-        place_number = int(place[-1]) # Цифреное значение координаты
-        new_number = place_number + 1 if place_number < 8 else place_number
-        new_place = place.replace(str(place_number), str(new_number)) # Новая координата на которую может пойти пешка (белая)
-        return new_place
-
-    def _get_cell_down(self, place: str) -> str:
-        place_number = int(place[-1])
-        new_number = place_number - 1 if place_number > 1 else place_number
-        new_place = place.replace(str(place_number), str(new_number))
-        return new_place
-
-    def _get_cell_left(self, place: str) -> str:
-        place_symbol = place[0]
-        new_symbol = chr(ord(place_symbol) - 1) if place_symbol != "A" else place_symbol
-        new_place = place.replace(place_symbol, new_symbol)
-        return new_place # Новая буква
-
-    def _get_cell_right(self, place: str) -> str:
-        place_symbol = place[0]
-        new_symbol = chr(ord(place_symbol) + 1) if place_symbol != "H" else place_symbol
-        new_place = place.replace(place_symbol, new_symbol)
-        return new_place
-
-    def _get_cell_diagonal_left_up(self, place: str) -> str:
-        new_number = str(self._get_cell_up(place)[-1])
-        new_symbol = self._get_cell_left(place)[0]
-        new_place = new_symbol + new_number
-        new_place = self.place.replace(place, new_place)
-        return new_place
-
-    def _get_cell_diagonal_right_up(self, place: str) -> str:
-        new_number = str(self._get_cell_up(place)[-1])
-        new_symbol = self._get_cell_right(place)[0]
-        new_place = new_symbol + new_number
-        new_place = self.place.replace(place, new_place)
-        return new_place
-
-    def _get_cell_diagonal_left_down(self, place: str) -> str:
-        new_number = str(self._get_cell_down(place)[-1])
-        new_symbol = self._get_cell_left(place)[0]
-        new_place = new_symbol + new_number
-        new_place = self.place.replace(place, new_place)
-        return new_place
-
-    def _get_cell_diagonal_right_down(self, place: str) -> str:
-        new_number = str(self._get_cell_down(place)[-1])
-        new_symbol = self._get_cell_right(place)[0]
-        new_place = new_symbol + new_number
-        new_place = self.place.replace(place, new_place)
-        return new_place
 
     def get_moves(self) -> list:
         place_number = int(self.place[-1])
@@ -95,7 +132,7 @@ class Pawn(Piece):
             new_place = "Вы ввели неправильный цвет!"
         return [new_place]
 
-    def get_takes(self) -> list:
+    def get_takes(self, piece_move = 1) -> list:
         takes = []
         place_number = int(self.place[-1])
         if self.color == "white":
@@ -127,15 +164,27 @@ class Pawn(Piece):
     def move_on(self, target):
         self.place = target
 
+
 class Queen(Piece):
+
     def __init__(self, color, place):
         super().__init__(color, place)
         self.moves = self.get_moves()
         self.takes = self.get_takes()
-        self.target = self.new_target()
+        self.target = ""
 
     def get_moves(self):
-        return []
+        new_place = []
+        place_number = int(self.place[-1])
+        new_place.append(self._get_cell_up(self.place, (8 - place_number)))
+        new_place.append(self._get_cell_down(self.place, (place_number - 1)))
+        new_place.append(self._get_cell_left(self.place))
+        new_place.append(self._get_cell_right(self.place))
+        new_place.append(self._get_cell_diagonal_left_up(self.place ,(8 - place_number)))
+        new_place.append(self._get_cell_diagonal_right_up(self.place ,(8 - place_number)))
+        new_place.append(self._get_cell_diagonal_left_down(self.place ,(place_number - 1)))
+        new_place.append(self._get_cell_diagonal_right_down(self.place ,(place_number - 1)))
+        return new_place
 
     def get_takes(self):
         return []
@@ -144,7 +193,12 @@ class Queen(Piece):
         return "A1"
 
 
-pawn = Pawn('black', 'D5')
+# pawn = Pawn('white', 'D5')
+# print(pawn)
+# print(pawn.new_target())
+# print(pawn)
+
+pawn = Queen('white', 'D5')
 print(pawn)
-print(pawn.new_target())
-print(pawn)
+
+print(chr(ord("H") + 1))
