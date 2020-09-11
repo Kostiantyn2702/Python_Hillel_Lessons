@@ -9,10 +9,10 @@ class Piece:
     def __repr__(self):
         return f"----------------\n" \
                f"color: {self.color}\n" \
-               f"place:{self.place}\n" \
-               f"target:{self.target}\n" \
-               f"moves:{self.moves}\n" \
-               f"takes:{self.takes}\n" \
+               f"place: {self.place}\n" \
+               f"target: {self.target}\n" \
+               f"moves: {self.moves}\n" \
+               f"takes: {self.takes}\n" \
                f"----------------"
 
     def get_moves(self):
@@ -103,8 +103,7 @@ class Piece:
                 count += 1
         return all_diagonal_left_down
 
-
-    def _get_cell_diagonal_right_down(self, place: str, piece_move) -> list:
+    def _get_cell_diagonal_right_down(self, place: str, piece_move = 1) -> list:
         count = 1
         all_diagonal_right_down = []
         cell_down = self._get_cell_down(place, piece_move)
@@ -122,7 +121,7 @@ class Pawn(Piece):
         self.takes = self.get_takes()
         self.target = ""
 
-    def get_moves(self) -> list:
+    def get_moves(self):
         place_number = int(self.place[-1])
         if self.color == "white":
             new_place = self._get_cell_up(self.place) if place_number < 8 else self.place
@@ -154,15 +153,15 @@ class Pawn(Piece):
         return takes
 
     def new_target(self):
-        print("Выберите цель для хода.")
-        new_target = input()
-        self.move_on(new_target)
+        print("Введите цель: ")
+        target = input()
+        return target
+
+    def move_to_target(self):
+        self.place = self.new_target()
         self.moves = self.get_moves()
         self.takes = self.get_takes()
         self.target = ""
-
-    def move_on(self, target):
-        self.place = target
 
 
 class Queen(Piece):
@@ -187,18 +186,27 @@ class Queen(Piece):
         return new_place
 
     def get_takes(self):
-        return []
+        takes = self.get_moves()
+        return takes
 
     def new_target(self):
-        return "A1"
+        print("Введите цель: ")
+        target = input()
+        return target
+
+    def move_to_target(self):
+        self.place = self.new_target()
+        self.moves = self.get_moves()
+        self.takes = self.get_takes()
+        self.target = ""
 
 
-# pawn = Pawn('white', 'D5')
+
+pawn = Pawn('white', 'D5')
+print(pawn)
+# pawn.move_to_target()
 # print(pawn)
-# print(pawn.new_target())
-# print(pawn)
+
 
 pawn = Queen('white', 'D5')
 print(pawn)
-
-print(chr(ord("H") + 1))
