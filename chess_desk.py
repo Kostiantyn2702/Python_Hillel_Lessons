@@ -3,7 +3,7 @@ class Desk:
     def __init__(self):
         self.desk = self.my_empty_desk()
         self.desk_print = self.print_my_desk()
-        # self.piece_type = piece_type
+
         # self.place = place
         pass
 
@@ -49,12 +49,17 @@ class Desk:
         return piece_type
 
     def remove_piece_from(self, place):
-        pass
+        piece_type = self.desk[place[0]][place[-1]]
+        desk = self.desk
+        desk[place[0]][place[-1]] = place
+        my_desk = self.desk_print
+        self.desk_print = my_desk.replace(piece_type, place, 1)
 
     def add_piece_on(self, place, type_piece):
-        self.desk[place[0]][place[-1]] = type_piece
-        my_desk = self.print_my_desk()
-        self.desk_print = my_desk.replace(place, type_piece)
+        desk = self.desk
+        desk[place[0]][place[-1]] = place + "/" + type_piece
+        my_desk = self.desk_print
+        self.desk_print = my_desk.replace(place, place + "/" + type_piece)
 
 
 
@@ -62,17 +67,20 @@ class Desk:
 
 desk = Desk()
 
-print(desk.desk_print)
-
-print(desk.get_piece_on("A1"))
-
 desk.add_piece_on("A1", "Pawn")
 
-print("____________________")
+desk.add_piece_on("A3", "Pawn")
 
 print(desk.desk_print)
 
 print(desk.get_piece_on("A1"))
+print(desk.get_piece_on("A3"))
+
+desk.remove_piece_from("A1")
+
+print(desk.desk_print)
+
+
 
 # my_desk_print = """
 # |A8|B8|C8|D8|E8|F8|G8|H8|
