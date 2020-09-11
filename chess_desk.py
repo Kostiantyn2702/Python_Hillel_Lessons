@@ -4,9 +4,6 @@ class Desk:
         self.desk = self.my_empty_desk()
         self.desk_print = self.print_my_desk()
 
-        # self.place = place
-        pass
-
     def __repr__(self):
         return (
             """
