@@ -157,3 +157,145 @@ Split a list into smaller lists of the same size (chunks). The last chunk can be
 # def except_zero(L):
 #     s = iter(sorted(filter(None, L)))
 #     return [x and next(s) for x in L]
+
+"""Ваше задание - пересортировать список, расположив числа в порядке уменьшения их количества в списке. 
+Если несколько чисел встречаются одинаково часто - их необходимо расположить в порядке от меньшего к большему, вне зависимости от того, в каком порядке они встречаются в исходном списке. 
+Например: [5, 2, 4, 1, 1, 1, 3] ==> [1, 1, 1, 2, 3, 4, 5]"""
+
+
+# def frequency_sorting(items):
+#     items.insert(0, -1)
+#     sorted_list = sorted(items, key=lambda x: (-items.count(x), items.index(x), items.sort()))
+#     sorted_list.remove(-1)
+#     return sorted_list
+#
+# def frequency_sorting(numbers):
+#     return sorted(sorted(numbers), key=numbers.count, reverse=True)
+
+"""
+Вам дан Массив(tuple), который состоит из integers и других массивов. И эти массивы тоже могут внутри иметь массивы.
+Ваша задача узнать на сколько глубока эта структура или какая глубина вложенности этих массивов.
+"""
+
+
+# def how_deep(structure):
+#     structure = str(structure)
+#     if "(" in structure:
+#         index_scobe = structure.find(")")
+#         structure = structure[0:index_scobe]
+#         answer = structure.count("(")
+#         return answer
+#     elif "[" in structure:
+#         index_scobe = structure.find("]")
+#         structure = structure[0:index_scobe]
+#         answer = structure.count("[")
+#         return answer
+
+
+# def how_deep(structure):
+#     structure = str(structure)
+#     count = structure.count(",(")
+#     print(count)
+#     return 1
+#
+# def how_deep(x):
+#     if x and isinstance(x, (list, tuple)):
+#         return 1 + max(how_deep(i) for i in x)
+#     return 0
+
+# def get_depth(list_):
+#     return 1 + max(get_depth(itm) for itm in list_) if type(list_) == list else 0
+#
+# def get_depth(l):
+#     if isinstance(l, (list, tuple)):
+#         t = ()
+#         for itm in l:
+#             t += get_depth(itm),
+#         return 1 + max(t)
+#     return 0
+
+# structure = (1, 2, (3, (4, (5,))))
+#
+# structure = (1, (2,), (3,))
+#
+# structure = (((),),)
+# structure = [[[],[],[]]]
+#
+# structure = (1, 2, (3,))
+# structure = [1,[2],[2,[3]]]
+# structure = (1, ((),), (3,))
+# structure = (1, 2, 3)
+
+# structure = str(structure)
+# structure = structure.split(",")
+# print(structure)
+
+"""Вы современый человек, предпочитающий использовать 24-часовой формат времени. 
+Но в некоторых регионах используют 12-часовой формат. 
+Ваша задача - переконвертировать время из 12-часового формата в 24-часовой, используя следующие правила:
+- выходной формат должен быть 'чч:мм'
+- если часы меньше 10 - допишите '0' перед ними. Например: '09:05'"""
+# import re
+#
+# def time_converter(time:str):
+#     reg_exp = r"[0-9]{1,2}"
+#     split_time = re.findall(reg_exp, time)
+#     print(split_time)
+#     if time.endswith("p.m."):
+#         if int(split_time[0]) == 12:
+#             result = f"{int(split_time[0])}:{split_time[1]}"
+#             return result
+#         result = f"{int(split_time[0]) + 12}:{split_time[1]}"
+#         return result
+#     elif time.endswith("a.m."):
+#         if len(split_time[0]) == 1:
+#             result = f"0{int(split_time[0])}:{split_time[1]}"
+#             return result
+#         elif int(split_time[0]) == 12:
+#             result = f"00:{split_time[1]}"
+#             return result
+#         result = f"{int(split_time[0])}:{split_time[1]}"
+#         return result
+#
+# def time_converter(time):
+#     h, m = map(int, time[:-5].split(':'))
+#     return f"{h % 12 + 12 * ('p' in time):02d}:{m:02d}"
+
+"""A given list should be "compressed" in a way so, instead of two (or more) equal elements, staying one after another, there is only one in the result Iterable (list, tuple, iterator ...)."""
+
+# def compress(items: list):
+#     if items:
+#         for index, numb in enumerate(items):
+#             if index == len(items) - 1:
+#                 return items
+#             next_item = items[index + 1]
+#             if next_item == numb:
+#                 items.pop(index + 1)
+#                 return compress(items)
+#     else:
+#         return items
+
+"""Никола любит классифицировать все вещи. Он классифицировал ряд чисел, и в результате его усилий простая последовательность чисел стала глубоко вложенным списком. 
+София и Стефан не понимают, как он организовал числа, и нужно выяснить, что всё это значит.
+ Им нужна ваша помощь, чтобы понять сумасшедший список Николы.
+Существует список, который содержит целые числа или другие вложенные списки, которые могут содержать ещё несколько списков и целых чисел, которые затем... ну, вы поняли. 
+Вы должны поместить все целые значения в один плоский список. Порядок должен быть такой же, как и в первоначальном списке, с представлением строки слева направо.
+Мы должны скрыть эту программу от Николы, сделав её маленькой и лёгкой. Поэтому ваш код должен быть короче, чем 140 символов (с пробелами) ."""
+
+# import re
+#
+# def flat_list(array):
+#     answer = []
+#     reg_exp = r"[-+]?\d+"
+#     result = re.findall(reg_exp, str(array))
+#     for i in result:
+#         answer.append(int(i))
+#     return answer
+#
+# def flat_list(l):
+#     r = []
+#     def f(l):
+#         for i in l:
+#             r.append(i) if type(i) is int else f(i)
+#     f(l)
+#     return r
