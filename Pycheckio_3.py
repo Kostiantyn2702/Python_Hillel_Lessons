@@ -74,3 +74,36 @@
 #             any(re.search('+[.!-]*'.join(c for c in word), subj.lower())
 #                 for word in ['help', 'asap', 'urgent']))
 
+"""
+Дано положительное целое число. Вам необходимо подсчитать произведение всех цифр в этом числе, за исключением нулей.
+Для примера: Дано число 123405. Результат будет: 1*2*3*4*5=120 (не забудьте исключить нули)."""
+
+# def checkio(number: int) -> int:
+#     answer = 1
+#     for num in str(number):
+#         if num != "0":
+#             answer *= int(num)
+#     return answer
+
+"""
+In this mission you need to create a password verification function.
+Those are the verification conditions:
+the length should be bigger than 6;
+should contain at least one digit.
+"""
+
+# def is_acceptable_password(password: str) -> bool:
+#     is_digit = "1234567890"
+#     if len(password) < 6 or len(password) == 6:
+#         return False
+#     for digits in is_digit:
+#         if digits in password:
+#             return True
+#     return False
+
+"""
+In this mission you need to create a password verification function.
+Those are the verification conditions:
+the length should be bigger than 6;
+should contain at least one digit, but cannot consist of just digits
+"""
