@@ -107,3 +107,14 @@ Those are the verification conditions:
 the length should be bigger than 6;
 should contain at least one digit, but cannot consist of just digits
 """
+
+# def is_acceptable_password(password: str) -> bool:
+#     if password.isdigit():
+#         return False
+#     is_digit = "1234567890"
+#     if len(password) < 6 or len(password) == 6:
+#         return False
+#     for digits in is_digit:
+#         if digits in password:
+#             return True
+#     return False
